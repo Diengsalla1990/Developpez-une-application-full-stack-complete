@@ -12,13 +12,13 @@ import com.openclassrooms.mddapi.model.User;
 */
 
 public interface UserRepository extends JpaRepository<User,Long>{
-	
-	/**
-	* Rechercher un utilisateur par son adresse e-mail.
-	*
-	* @param email L'adresse e-mail de l'utilisateur.
-	* @return Un champ facultatif contenant l'utilisateur s'il est trouvé, vide sinon.
-	*/
+		
+		/**
+		* Rechercher un utilisateur par son adresse e-mail.
+		*
+		* @param email L'adresse e-mail de l'utilisateur.
+		* @return Un champ facultatif contenant l'utilisateur s'il est trouvé, vide sinon.
+		*/
 	  Optional<User> findByEmail(String email);
 
 	  /**

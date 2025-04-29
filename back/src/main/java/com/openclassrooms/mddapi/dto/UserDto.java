@@ -36,5 +36,6 @@ public class UserDto {
   private String password;
 
   /** La liste des identifiants de Theme associés à l'utilisateur. */
+ 
   private List<Long> themeIds;
 }
