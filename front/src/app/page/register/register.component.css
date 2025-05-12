@@ -1,0 +1,29 @@
+ body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header-logo {
+      height: 60px;
+    }
+    .back-button {
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .login-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-box {
+      width: 100%;
+      max-width: 400px;
+    }
+    .btn-purple {
+      background-color: #8e5df5;
+      color: white;
+    }
+    .btn-purple:hover {
+      background-color: #7b4de0;
+    }

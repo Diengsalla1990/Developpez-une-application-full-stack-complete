@@ -1,0 +1,17 @@
+<main>
+  <div class="imgContainer">
+   <img [src]="logoUrl" alt="Logo MDD" />
+  </div>
+  <div class="buttonContainer">
+    <app-button
+      [buttonProps]="buttonPropsLogin"
+      class="homeButton"
+      (click)="handleLoginClick()"
+    />
+    <app-button
+      [buttonProps]="buttonPropsRegister"
+      class="homeButton"
+      (click)="handleRegisterClick()"
+    />
+  </div>
+</main>

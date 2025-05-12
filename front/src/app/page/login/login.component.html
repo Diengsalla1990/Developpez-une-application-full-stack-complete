@@ -1,0 +1,28 @@
+ <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-3 border-bottom">
+    <img src="assets/logo_p6.png" alt="MDD Logo" class="header-logo" />
+  </header>
+
+  <!-- Login Form -->
+  <main class="login-container">
+    <div class="form-box">
+     <span class="back-button me-3" (click)="backToHome()">&larr;</span>
+     <div class="text-center mb-3">
+  <img src="assets/logo_p6.png" alt="Connexion" width="400" height="200" class="mb-2" />
+    </div>
+      <h3 class="text-center mb-4">Se connecter</h3>
+      <form>
+        <div class="mb-3">
+          <label for="email" class="form-label">E-mail ou nom d'utilisateur</label>
+          <input type="text" class="form-control" id="email" />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" class="form-control" id="password" />
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-purple">Se connecter</button>
+        </div>
+      </form>
+    </div>
+  </main>

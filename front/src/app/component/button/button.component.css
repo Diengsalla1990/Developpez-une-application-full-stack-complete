@@ -1,0 +1,43 @@
+/* Note: Les variables ($color-primary, $font-size-basic, $border-radius) */
+/* doivent être remplacées par leurs valeurs réelles depuis globalVariables */
+
+.colored {
+  background-color: #007bff; /* Remplacez par la valeur de $color-primary */
+  border: none;
+  color: white;
+}
+
+.unclickable {
+  background-color: darkgrey;
+  border: none;
+  color: white;
+  cursor: default;
+}
+
+.unclickable:hover {
+  text-decoration: none;
+}
+
+button {
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 220px;
+  border: solid 2px black;
+  cursor: pointer;
+  font-size: 16px; /* Remplacez par la valeur de $font-size-basic */
+  font-weight: 500;
+  border-radius: 4px; /* Remplacez par la valeur de $border-radius */
+  background-color: transparent;
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  button {
+    max-width: 280px;
+    font-size: 22px;
+  }
+}
