@@ -20,7 +20,9 @@ export class HomeComponent {
   constructor(private router: Router) {}
 
   handleLoginClick() {
+    console.log("je suis dedans")
     this.router.navigateByUrl('/login');
+    
   }
 
   handleRegisterClick() {

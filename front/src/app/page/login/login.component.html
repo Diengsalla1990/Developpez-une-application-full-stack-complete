@@ -8,20 +8,33 @@
     <div class="form-box">
      <span class="back-button me-3" (click)="backToHome()">&larr;</span>
      <div class="text-center mb-3">
-  <img src="assets/logo_p6.png" alt="Connexion" width="400" height="200" class="mb-2" />
+  <img src="assets/logo_p6.png" alt="Connexion" width="400" height="100" class="mb-2" />
     </div>
       <h3 class="text-center mb-4">Se connecter</h3>
-      <form>
+        @if(credentialsError){
+    <div class="errorCredentialsMessageContainer">
+      <p>{{ credentialsErrorMessage }}</p>
+    </div>
+    }
+      <form [formGroup]="loginForm">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail ou nom d'utilisateur</label>
-          <input type="text" class="form-control" id="email" />
+          <input type="text" id="emailOrUsername" formControlName="emailOrUsername" class="form-control" />
+          <div class="errorMessageContainer">
+        <p [class.hasError]="emailOrUsernameHasError">
+          Un email ou username est requis
+        </p>
+      </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Mot de passe</label>
-          <input type="password" class="form-control" id="password" />
+          <input type="password" class="form-control" formControlName="password" id="password" />
         </div>
+        <div class="errorMessageContainer">
+        <p [class.hasError]="passwordHasError">Un mot de passe est requis</p>
+       </div>
         <div class="d-grid">
-          <button type="submit" class="btn btn-purple">Se connecter</button>
+          <button type="submit" class="btn btn-purple" (click)="onSubmitForm()">Se connecter</button>
         </div>
       </form>
     </div>

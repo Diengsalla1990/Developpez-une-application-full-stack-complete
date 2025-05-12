@@ -238,3 +238,27 @@ template {
     .btn-purple:hover {
       background-color: #7b4de0;
     }
+
+    .errorMessageContainer {
+  color: red;
+  height: 20px;
+}
+
+.errorMessageContainer p {
+  display: none;
+}
+
+.errorMessageContainer .hasError {
+  display: block;
+}
+
+.submitButton {
+  margin-top: 25px;
+  width: 220px;
+}
+
+.errorCredentialsMessageContainer {
+  color: red;
+  font-size: var(--font-size-h1); /* Remplacement de la variable SCSS par CSS */
+  margin-top: 15px;
+}
