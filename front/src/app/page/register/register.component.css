@@ -1,3 +1,40 @@
+ 
+
+
+
+ .errorMessageContainer {
+  color: red;
+  height: 20px;
+}
+
+.errorMessageContainer p {
+  display: none;
+}
+
+.errorMessageContainer .hasError {
+  display: block;
+}
+
+.long {
+  height: 50px;
+}
+
+.submitButton {
+  margin-top: 25px;
+  width: 220px;
+}
+
+.errorCredentialsMessageContainer {
+  color: red;
+  font-size: var(--font-size-h1, 24px); /* Variable CSS avec valeur par défaut */
+  margin-top: 15px;
+}
+
+.registerSuccess {
+  color: var(--color-primary, #3f51b5); /* Variable CSS avec valeur par défaut */
+}
+ 
+ 
  body {
       min-height: 100vh;
       display: flex;
@@ -27,3 +64,4 @@
     .btn-purple:hover {
       background-color: #7b4de0;
     }
+

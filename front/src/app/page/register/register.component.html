@@ -8,25 +8,45 @@
   <main class="login-container">
     <div class="form-box">
      <span class="back-button me-2" (click)="backToHome()">&larr;</span>
-     <div class="text-center mb-3">
-  <img src="assets/logo_p6.png" alt="Connexion" width="400" height="100" class="mb-2" />
-    </div>
       <h3 class="text-center mb-4">Inscription</h3>
-      <form>
+      @if (registerIsSuccess) {
+  <p class="registerSuccess">Inscription réussie, redirection en cours...</p>
+  }
+      <form [formGroup]="registerForm">
         <div class="mb-3">
-          <label for="usename" class="form-label">Nom d'utilisateur</label>
+          <label for="username" class="form-label">Nom d'utilisateur</label>
           <input type="text" id="username" class="form-control" formControlName="username" />
+          
         </div>
+        <div class="errorMessageContainer">
+          <p [class.hasError]="emailHasError">Un Username est requis</p>
+      </div>
         <div class="mb-3">
           <label for="email" class="form-label">Adresse e-mail</label>
-          <input type="text" class="form-control" id="email" />
+          <input type="text" class="form-control" id="email" formControlName="email"  />
+          
         </div>
+        <div class="errorMessageContainer">
+        <p [class.hasError]="emailHasError">Un email est requis</p>
+      </div>
         <div class="mb-3">
           <label for="password" class="form-label">Mot de passe</label>
-          <input type="password" class="form-control" id="password" />
+          <input type="password" class="form-control" id="password" formControlName="password"  />
+           
         </div>
+        <div class="errorMessageContainer long">
+        <p [class.hasError]="passwordHasError">
+          Le mot de passe doit au minimum contenir: 8 caractères, 1 minuscule, 1
+          majuscule, 1 chiffre, 1 caractère spécial
+        </p>
+      </div>
+        @if(registerFormHasError){
+    <div class="errorCredentialsMessageContainer">
+      <p>{{ registerErrorMessage }}</p>
+    </div>
+    }
         <div class="d-grid">
-          <button type="submit" class="btn btn-purple">Se connecter</button>
+          <button type="submit" class="btn btn-purple" (click)="onSubmitForm()">S'inscrire</button>
         </div>
       </form>
     </div>
