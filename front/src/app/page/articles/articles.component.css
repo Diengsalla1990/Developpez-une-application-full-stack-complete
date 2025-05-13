@@ -1,0 +1,60 @@
+main {
+  width: 100%;
+  padding-top: 50px;
+  padding-left: 3%;
+  padding-right: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    padding-top: 35px;
+  }
+}
+
+/* .userControlContainer */
+main .userControlContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  main .userControlContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+}
+
+main .userControlContainer p {
+  font-size: 1.2rem; /* remplacé $font-size-big */
+  font-weight: bold;
+}
+
+/* .postContainer */
+main .postContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5%;
+}
+
+main .postContainer .postCardContainer {
+  width: 45%;
+  min-width: 450px;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 1025px) {
+  main .postContainer .postCardContainer {
+    min-width: 0px;
+    width: 100%;
+  }
+}
