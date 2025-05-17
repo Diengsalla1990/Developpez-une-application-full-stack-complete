@@ -1,0 +1,19 @@
+.card {
+      background-color: #f5f5f5;
+      border: none;
+      border-radius: 12px;
+    }
+    .btn-subscribe {
+      background-color: #7a5ee0;
+      color: white;
+      font-weight: bold;
+    }
+    .btn-subscribe:hover {
+      background-color: #6b52ca;
+    }
+    .btn-subscribed {
+      background-color: #999;
+      color: white;
+      font-weight: bold;
+      cursor: default;
+    }

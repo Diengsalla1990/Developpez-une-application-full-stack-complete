@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation of the PostInterface service.
- */
+* Implémentation du service PostInterface.
+*/
 @Service
 public class ArticleServiceImpl implements ArticleInterface {
 
@@ -18,33 +18,33 @@ public class ArticleServiceImpl implements ArticleInterface {
   private ArticleRepository articleRepository;
 
   /**
-   * Saves a post.
-   *
-   * @param post The post to save.
-   * @return The saved post.
-   */
+  * Enregistre une publication.
+  *
+  * @param post La publication à enregistrer.
+  * @return La publication enregistrée.
+  */
   @Override
   public Article saveArticle(Article article) {
     return articleRepository.save(article);
   }
 
   /**
-   * Retrieves a post by ID.
-   *
-   * @param id The ID of the post to retrieve.
-   * @return An Optional containing the post if found, empty otherwise.
-   */
+  * Récupère une publication par identifiant.
+  *
+  * @param id : identifiant de la publication à récupérer.
+  * @return : optionnel contenant la publication si elle est trouvée, vide sinon.
+  */
   @Override
   public Optional<Article> getArticleById(long id) {
     return articleRepository.findById(id);
   }
 
   /**
-   * Retrieves a post by ID with associated comments eagerly fetched.
-   *
-   * @param id The ID of the post to retrieve.
-   * @return An Optional containing the post if found, empty otherwise.
-   */
+  * Récupère une publication par identifiant et les commentaires associés, récupérés rapidement.
+  *
+  * @param id : identifiant de la publication à récupérer.
+  * @return : optionnel contenant la publication si elle est trouvée, vide sinon.
+  */
   @Override
   public Optional<Article> getArticleWithCommentsById(long id) {
     return articleRepository

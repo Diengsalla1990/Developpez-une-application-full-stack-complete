@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.passwordHasError = true;
     }
 
-    // If any validation fails, stop submission
+    // si les validations échou, arret soumission
     if (this.emailHasError || this.usernameHasError || this.passwordHasError) {
       this.isRegistering = false;
       return;
@@ -100,7 +100,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         next: (success: boolean) => {
           if (success) {
             this.registerIsSuccess = true;
-            // redirect after 3 seconds
+            // redirect apres 3 seconds
             setTimeout(() => {
               this.router.navigateByUrl('/login');
             }, 3000);

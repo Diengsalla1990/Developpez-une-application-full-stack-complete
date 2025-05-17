@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ArticleService {
 
-   private pathService = 'api/post/';
+   private pathService = 'api/article/';
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +37,7 @@ export class ArticleService {
    */
   public getById(articleId: number): Observable<Article> {
     return this.http
-      .get<PostResponse>(this.pathService + 'getpost/' + articleId)
+      .get<PostResponse>(this.pathService + 'getarticle/' + articleId)
       .pipe(
         map((response: PostResponse) => getPostFromPostResponse(response)),
         catchError((error: any) => getErrorMessageFromCatchedError(error))

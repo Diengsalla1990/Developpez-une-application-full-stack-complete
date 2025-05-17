@@ -1,0 +1,51 @@
+<app-nav></app-nav>
+<div class="container my-4" *ngIf="article$ | async as article">
+
+  <!-- Bouton retour + titre -->
+  <div class="d-flex align-items-center mb-3">
+    <button class="btn btn-link p-0 me-2" (click)="backToArticles()">
+      <i class="bi bi-arrow-left fs-4"></i> <!-- Bootstrap Icon -->
+    </button>
+    <h4 class="mb-0 fw-bold">{{ article.title }}</h4>
+  </div>
+
+  <!-- Infos article -->
+  <div class="mb-3 text-muted d-flex gap-4">
+    <span>{{ article.createdAt | date }}</span>
+    <span>{{ article.auteurName }}</span>
+    <span>{{ article.themeName }}</span>
+  </div>
+
+  <!-- Contenu -->
+  <div class="mb-4">
+    <p class="mb-0">
+      <strong>Content:</strong> {{ article.content }}
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- Section commentaires -->
+  <div class="mt-4">
+    <h5 class="mb-3">Commentaires</h5>
+
+    <div *ngFor="let comment of article.comments" class="d-flex align-items-start mb-3">
+  <strong class="me-2">{{comment.auteurName}}</strong>
+  <div class="bg-light rounded p-2 flex-grow-1">
+    {{comment.content}}
+  </div>
+</div>
+
+    <!-- Ajouter un commentaire -->
+<form [formGroup]="commentForm">
+    <div class="d-flex align-items-center mt-4">
+    
+      <textarea class="form-control rounded me-2" rows="5" cols="10"  formControlName="comment" placeholder="Écrivez ici votre commentaire"></textarea>
+      <button class="btn p-2" (click)="submitComment()">
+        <img src="assets/icon_send.png" alt="Send" width="24" height="24" />
+      </button>
+    
+    </div>
+</form>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+
+<app-nav></app-nav>
+
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="d-flex align-items-center mb-4">
+      <a href="#" class="back-arrow me-3">&#8592;</a>
+      <h3 class="m-0 fw-bold">Créer un nouvel article</h3>
+    </div>
+
+    <form [formGroup]="articleForm">
+      <div class="mb-3">
+        <select class="form-select" 
+         formControlName="theme"
+         (change)="onSelectChange()"
+         [class.notDefault]="themeIsNotPlaceholderSelection"
+         >
+         <option
+            class="selectSubjectPlaceholder"
+            [ngValue]="null"
+            disabled
+            selected
+          >
+            Sélectionner un thème
+          </option>
+          <option
+            *ngFor="let theme of themeList$ | async"
+            [value]="theme.id"
+          >
+            {{ theme.name }}
+          </option>
+        </select>
+        <div class="errorMessageContainer">
+          @if (themeHasError) {
+          <p>A theme must be selected</p>
+          }
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <input type="text" class="form-control custom-input" formControlName="title" placeholder="Titre de l’article">
+      </div>
+      <div class="errorMessageContainer">
+          @if (titleHasError) {
+          <p>A valid title must be provided (max 60 char)</p>
+          }
+        </div>
+      <div class="mb-4">
+        <textarea class="form-control" rows="5" formControlName="content" placeholder="Contenu de l’article"></textarea>
+      </div>
+      <div class="errorMessageContainer">
+          @if (contentHasError) {
+          <p>A valid content must be provided (min 10 char)</p>
+          }
+        </div>
+
+        @if (submitSuccess) {
+        <p>Your post was successfully created</p>
+        <p>Redirecting...</p>
+        } @else if (submitHasError) {
+        <p>An error occured, please try again later</p>
+        }
+      <div class="text-center">
+        <button type="submit" (click)="onSubmitForm()" class="custom-button">Créer</button>
+      </div>
+    </form>
+  </div>

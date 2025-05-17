@@ -26,8 +26,8 @@ import com.openclassrooms.mddapi.util.payload.Response.ArticleReponse;
 import com.openclassrooms.mddapi.util.payload.Response.UserResponse;
 
 /**
- * Controller for handling operations related to comments.
- */
+* Contrôleur pour la gestion des opérations liées aux commentaires.
+*/
 @RestController
 @RequestMapping("/api/comment")
 public class CommentaireController {
@@ -54,18 +54,18 @@ public class CommentaireController {
   private ArticleReponse articleResponse;
 
   /**
-   * Endpoint for creating a new comment.
-   * @param jwt The JWT token obtained from the request.
-   * @param commentRequest The request payload containing the comment data.
-   * @return ResponseEntity containing the response to the request.
-   */
+  * Point de terminaison pour la création d'un commentaire.
+  * @param jwt Le jeton JWT obtenu à partir de la requête.
+  * @param commentRequest La charge utile de la requête contenant les données du commentaire.
+  * @return ResponseEntity contenant la réponse à la requête.
+  */
   @PostMapping("/create")
   public ResponseEntity<?> createComment(
     @AuthenticationPrincipal Jwt jwt,
     @Valid @RequestBody CommentaireRequest commentRequest
   ) {
     try {
-      // Retrieve the post based on the provided post ID
+    	// Récupérer la publication en fonction de l'ID de publication fourni
       Optional<Article> optionalArticle = articleService.getArticleById(
         commentRequest.getArticleId()
       );
@@ -76,7 +76,7 @@ public class CommentaireController {
       }
       Article article = optionalArticle.get();
 
-      // Retrieve the user based on the JWT token
+   // Récupérer l'utilisateur en fonction du jeton JWT
       long userId = jwtService.getUserIdFromJwtLong(jwt);
       Optional<User> optionalDbUser = userService.getUserById(userId);
       if (!optionalDbUser.isPresent()) {
@@ -86,20 +86,20 @@ public class CommentaireController {
       }
       User dbUser = optionalDbUser.get();
 
-      // Create the comment
+      // Creation d'un commentaire
       Commentaire comment = new Commentaire();
       comment.setContent(commentRequest.getContent());
       comment.setUser(dbUser);
       comment.setArticle(article);
       comment.setCreatedAt(LocalDateTime.now());
 
-      // Save the comment
+      // Save commentaire
       Commentaire savedComment = commentService.saveComment(comment);
 
-      // Retrieve the updated post with comments
+   // Récupérer le message mis à jour avec les commentaires
       List<Commentaire> commentList = article.getComments();
 
-      // Return the response with the updated post
+   // Renvoyer la réponse avec le message mis à jour
       return ResponseEntity
         .ok()
         .body(
@@ -108,7 +108,7 @@ public class CommentaireController {
           )
         );
     } catch (Exception e) {
-      // Return an internal server error response if an exception occurs
+    	// Renvoyer une réponse d'erreur interne du serveur si une exception se produit
       return ResponseEntity.internalServerError().build();
     }
   }

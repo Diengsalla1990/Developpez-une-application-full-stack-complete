@@ -1,0 +1,5 @@
+.active-link {
+  color: #7a5ee0 !important;
+  font-weight: bold;
+  border-bottom: 2px solid #7a5ee0;
+}

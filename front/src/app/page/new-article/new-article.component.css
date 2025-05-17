@@ -1,0 +1,28 @@
+.custom-input, .form-select, textarea {
+      border: 2px solid #8b74d4;
+      border-radius: 10px;
+    }
+    .custom-button {
+      background-color: #8b74d4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 30px;
+    }
+    .custom-button:hover {
+      background-color: #7a66bf;
+    }
+    .back-arrow {
+      font-size: 28px;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+    }
+    @media (max-width: 576px) {
+      h3 {
+        font-size: 1.25rem;
+      }
+      .custom-button {
+        width: 100%;
+      }
+    }

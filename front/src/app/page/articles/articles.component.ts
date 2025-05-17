@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ButtonComponent } from '../../component/button/button.component';
 import { ArticleCardComponent } from '../../component/article-card/article-card.component';
 import { CommonModule } from '@angular/common';
@@ -7,18 +7,18 @@ import { Theme } from '../../core/model/Theme.model';
 import { Article } from '../../core/model/Article.model';
 import { Button } from '../../interface/Button.interface';
 import { SessionService } from '../../core/session.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ThemeService } from '../../core/api/theme.service';
 import { HeaderComponent } from "../../component/header/header.component";
+import { NavComponent } from '../../component/nav/nav.component';
 
 @Component({
   selector: 'app-articles',
-  imports: [ButtonComponent, ArticleCardComponent, CommonModule, HeaderComponent],
+  imports: [RouterLink, CommonModule,NavComponent],
   templateUrl: './articles.component.html',
   styleUrl: './articles.component.css'
 })
 export class ArticlesComponent implements OnInit, OnDestroy{
-
 
   subscription$!: Observable<number[]>;
   theme: Theme[] = [];
@@ -126,6 +126,10 @@ export class ArticlesComponent implements OnInit, OnDestroy{
     });
   }
  
+       onArticleClick(article: any) {
+  this.router.navigateByUrl(`/article/${article.id}`);
+}
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

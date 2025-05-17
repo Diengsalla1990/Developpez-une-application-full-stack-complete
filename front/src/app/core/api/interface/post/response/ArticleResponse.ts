@@ -1,4 +1,6 @@
-import { Commentaire } from '../../../../../model/Commentaire.model';
+import { Commentaire } from "../../../../model/Commentaire.model";
+
+
 
 export interface PostResponse {
   id: number;

@@ -32,8 +32,8 @@ import com.openclassrooms.mddapi.util.payload.Response.UserAuthResponse;
 import com.openclassrooms.mddapi.util.payload.Response.UserResponse;
 
 /**
- * Controller for handling user-related operations.
- */
+* Contrôleur pour la gestion des opérations liées à l'utilisateur.
+*/
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -60,65 +60,64 @@ public class UserController {
   private ThemeInterface themeService;
 
   /**
-   * Retrieves the currently authenticated user.
-   *
-   * @param jwt The JWT token representing the current user.
-   * @return ResponseEntity containing the user's details if found, or an error response if not found or an error occurs.
-   */
+  * Récupère l'utilisateur actuellement authentifié.
+  *
+  * @param jwt Le jeton JWT représentant l'utilisateur actuel.
+  * @return ResponseEntity contenant les informations de l'utilisateur si elles sont trouvées, ou une réponse d'erreur si elles ne sont pas trouvées ou si une erreur survient.
+  */
   @GetMapping("/me")
   public ResponseEntity<?> getMe(@AuthenticationPrincipal Jwt jwt) {
     try {
-      // Extract user ID from JWT token
+    	// Extraire l'ID utilisateur du jeton JWT
       long userId = jwtService.getUserIdFromJwtLong(jwt);
 
-      // Retrieve user from the database
+   // Récupérer l'utilisateur de la base de données
       Optional<User> optionalDbUser = dbUserService.getUserById(userId);
 
-      // Check if user exists
+   // Vérifier si l'utilisateur existe
       if (!optionalDbUser.isPresent()) {
         return ResponseEntity
           .badRequest()
           .body(userResponse.getMeNoUserFoundWithThisJwtTokenId());
       }
 
-      // Convert DbUser entity to DTO
+   // Convertir l'entité DbUser en DTO
       UserDto dbUserDto = entityAndDtoCreation.getDbUserDtoFromDbUserEntity(
         optionalDbUser.get()
       );
 
-      // Return user DTO in the response
+   // Renvoyer le DTO utilisateur dans la réponse
       return ResponseEntity.ok().body(dbUserDto);
     } catch (Exception e) {
-      // Return internal server error if an exception occurs
       return ResponseEntity.internalServerError().build();
     }
   }
 
   /**
-   * Retrieves the currently authenticated user along with their subscribed subjects.
-   *
-   * @param jwt The JWT token representing the current user.
-   * @return ResponseEntity containing the user's details with subscribed subjects if found, or an error response if not found or an error occurs.
-   */
+  * Récupère l'utilisateur actuellement authentifié ainsi que ses sujets abonnés.
+  *
+  * @param jwt Le jeton JWT représentant l'utilisateur actuel.
+  * @return ResponseEntity contenant les informations de l'utilisateur et les sujets abonnés s'ils sont trouvés, ou une réponse d'erreur s'ils ne sont pas trouvés ou si une erreur survient.
+  */
   @GetMapping("/mewithsub")
   public ResponseEntity<?> getMeWithSub(@AuthenticationPrincipal Jwt jwt) {
     try {
-      // Extract user ID from JWT token
+    	// Extraire l'ID utilisateur du jeton JWT
       long userId = jwtService.getUserIdFromJwtLong(jwt);
 
-      // Retrieve user with subscribed subjects from the database
+   // Récupérer l'utilisateur avec les sujets abonnés de la base de données
       Optional<User> optionalDbUser = dbUserService.getUserByIdWithSub(
         userId
       );
 
-      // Check if user exists
+      // verifier si user existe
       if (!optionalDbUser.isPresent()) {
         return ResponseEntity
           .badRequest()
           .body(userResponse.getMeNoUserFoundWithThisJwtTokenId());
       }
 
-      // Convert DbUser entity with subscribed subjects to DTO
+   // Convertir l'entité DbUser avec les sujets abonnés en DTO
       return ResponseEntity
         .ok()
         .body(
@@ -127,19 +126,18 @@ public class UserController {
           )
         );
     } catch (Exception e) {
-      // Return internal server error if an exception occurs
       return ResponseEntity.internalServerError().build();
     }
   }
 
   /**
-   * Updates the profile of the currently authenticated user.
-   *
-   * @param jwt The JWT token representing the current user.
-   * @param updateProfileRequest The request body containing the updated profile information.
-   * @param bindingResult The result of the validation on the request body.
-   * @return ResponseEntity containing the updated user's details with subscribed subjects if the update is successful, or an error response if not found, validation fails, or an error occurs.
-   */
+  * Met à jour le profil de l'utilisateur actuellement authentifié.
+  *
+  * @param jwt Le jeton JWT représentant l'utilisateur actuel.
+  * @param updateProfileRequest Le corps de la requête contenant les informations de profil mises à jour.
+  * @param bindingResult Le résultat de la validation du corps de la requête.
+  * @return ResponseEntity contenant les informations de l'utilisateur mises à jour avec les sujets abonnés si la mise à jour est réussie, ou une réponse d'erreur si elle est introuvable, si la validation échoue ou si une erreur survient.
+  */
   @PutMapping("/updateme")
   public ResponseEntity<?> updateMe(
     @AuthenticationPrincipal Jwt jwt,
@@ -164,17 +162,17 @@ public class UserController {
           .body(userResponse.getMeNoUserFoundWithThisJwtTokenId());
       }
 
-      // Get the user entity
+   // Obtenir l'entité utilisateur
       User dbUser = optionalDbUser.get();
 
-      // Create a new DbUser instance for updating
+   // Créer une nouvelle instance DbUser pour la mise à jour
       User updatedDbUser = new User();
       updatedDbUser.setId(dbUser.getId());
       updatedDbUser.setComments(dbUser.getComments());
       updatedDbUser.setArticles(dbUser.getArticles());
       updatedDbUser.setThemes(dbUser.getThemes());
 
-      // Update email if it's different from the current one
+   // Mettre à jour l'e-mail s'il est différent de l'actuel
       if (!updateProfileRequest.getEmail().equals(dbUser.getEmail())) {
         boolean isEmailAlreadyTaken = dbUserService.isEmailAlreadyTaken(
           updateProfileRequest.getEmail()
@@ -192,7 +190,7 @@ public class UserController {
         updatedDbUser.setEmail(dbUser.getEmail());
       }
 
-      // Update username if it's different from the current one
+   // Mettre à jour le nom d'utilisateur s'il est différent du nom actuel
       if (!updateProfileRequest.getUsername().equals(dbUser.getUsername())) {
         boolean isUsernameAlreadyTaken = dbUserService.isUsernameAlreadyTaken(
           updateProfileRequest.getUsername()
@@ -210,7 +208,7 @@ public class UserController {
         updatedDbUser.setUsername(dbUser.getUsername());
       }
 
-      // Update password if provided
+   // Mettre à jour le mot de passe si fourni
       if (updateProfileRequest.getPassword() != null) {
         updatedDbUser.setPassword(
           bCryptPasswordEncoder.encode(updateProfileRequest.getPassword())
@@ -235,21 +233,21 @@ public class UserController {
   }
 
   /**
-   * Subscribes the current user to a specified subject.
-   *
-   * @param jwt The JWT token representing the current user.
-   * @param subjectId The ID of the subject to subscribe to.
-   * @return ResponseEntity containing the updated user's details with subscribed subjects if the subscription is successful, or an error response if the subject ID is invalid, the user is not found, the user is already subscribed to the subject, or an error occurs.
-   */
-  @PostMapping("/subscribe/{ThemeId}")
+  * Abonne l'utilisateur actuel à un sujet spécifié.
+  *
+  * @param jwt Le jeton JWT représentant l'utilisateur actuel.
+  * @param subjectId L'ID du sujet auquel s'abonner.
+  * @return ResponseEntity contenant les informations de l'utilisateur mises à jour avec les sujets abonnés si l'abonnement est réussi, ou une réponse d'erreur si l'ID du sujet est invalide, si l'utilisateur est introuvable, s'il est déjà abonné au sujet ou si une erreur survient.
+  */
+  @PostMapping("/subscribe/{themeId}")
   public ResponseEntity<?> subscribe(
     @AuthenticationPrincipal Jwt jwt,
     @PathVariable final long themeId
   ) {
     try {
-      // Get all subjects from the database
+    	// Obtenir tous les sujets de la base de données
       List<Theme> themesList = themeService.getAllTheme();
-      // Check if the subject ID is present in the list of subjects
+   // Vérifier si l'ID du sujet est présent dans la liste des sujets
       boolean isSubjectIdPresentInSubjectList = isThemeIdPresent(
         themesList,
         themeId
@@ -274,7 +272,7 @@ public class UserController {
 
       User dbUser = optionalDbUser.get();
 
-      // Check if user is already subscribed to the subject
+   // Vérifier si l'utilisateur est déjà abonné au sujet
       boolean isUserAlreadySubOfThisSubject = isThemeIdPresent(
         dbUser.getThemes(),
         themeId
@@ -285,13 +283,13 @@ public class UserController {
           .body(userResponse.subscriptionUserAlreadySubscribed());
       }
 
-      // Add the subject to the user's list of subscribed subjects
+   // Ajouter le sujet à la liste des sujets abonnés de l'utilisateur
       List<Theme> themes = dbUser.getThemes();
       themes.add(themeService.getThemeById(themeId).get());
 
       User savedDbUser = dbUserService.saveUser(dbUser);
 
-      // Return the updated user DTO in the response
+   // Renvoyer le DTO utilisateur mis à jour dans la réponse
       return ResponseEntity
         .ok()
         .body(
@@ -309,21 +307,21 @@ public class UserController {
   }
 
   /**
-   * Unsubscribes the current user from a specified subject.
-   *
-   * @param jwt The JWT token representing the current user.
-   * @param subjectId The ID of the subject to unsubscribe from.
-   * @return ResponseEntity containing the updated user's details with subscribed subjects if the unsubscription is successful, or an error response if the subject ID is invalid, the user is not found, the user is not subscribed to the subject, or an error occurs.
-   */
+  * Désabonne l'utilisateur actuel d'un sujet spécifié.
+  *
+  * @param jwt Jeton JWT représentant l'utilisateur actuel.
+  * @param subjectId ID du sujet à désabonner.
+  * @return ResponseEntity contenant les informations mises à jour de l'utilisateur avec les sujets abonnés si la désinscription est réussie, ou une réponse d'erreur si l'ID du sujet est invalide, si l'utilisateur est introuvable, s'il n'est pas abonné au sujet ou si une erreur survient.
+  */
   @DeleteMapping("/unsubscribe/{themeId}")
   public ResponseEntity<?> unsubscribe(
     @AuthenticationPrincipal Jwt jwt,
     @PathVariable final long themeId
   ) {
     try {
-      // Get all subjects from the database
+    	// Obtenir tous les sujets de la base de données
       List<Theme> themesList = themeService.getAllTheme();
-      // Check if the subject ID is present in the list of subjects
+   // Vérifier si l'ID du sujet est présent dans la liste des sujets
       boolean isSubjectIdPresentInSubjectList = isThemeIdPresent(
     		  themesList,
     		  themeId
@@ -348,7 +346,7 @@ public class UserController {
 
       User dbUser = optionalDbUser.get();
 
-      // Check if user is already subscribed to the subject
+   // Vérifier si l'utilisateur est déjà abonné au sujet
       boolean isUserAlreadySubOfThisSubject = isThemeIdPresent(
         dbUser.getThemes(),
         themeId
@@ -359,13 +357,13 @@ public class UserController {
           .body(userResponse.subscriptionUserNotSubscribedToThisSubject());
       }
 
-      // Remove the subject from the user's list of subscribed subjects
+   // Supprimer le sujet de la liste des sujets abonnés de l'utilisateur
       List<Theme> subjects = dbUser.getThemes();
       subjects.removeIf(subject -> subject.getId() == themeId);
 
       User savedDbUser = dbUserService.saveUser(dbUser);
 
-      // Return the updated user DTO in the response
+   // Renvoyer le DTO utilisateur mis à jour dans la réponse
       return ResponseEntity
         .ok()
         .body(

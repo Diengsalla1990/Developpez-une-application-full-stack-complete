@@ -1,0 +1,95 @@
+<app-nav></app-nav>
+<div class="container text-center">
+    <!-- Profil utilisateur -->
+    <h2 class="fw-bold mb-4">Profil utilisateur</h2>
+    <form [formGroup]="updateUserForm">
+    <div class="mx-auto" style="max-width: 400px;">
+      <input type="text" class="form-control mb-3" formControlName="username" placeholder="Username">
+      <div class="errorContainer">
+          @if (usernameError) {
+          <p>A valid username is required</p>
+          } @else if (usernameAlreadyTaken) {
+          <p>Username is already taken</p>
+          }
+        </div>
+      <input type="email" class="form-control mb-3" formControlName="email" placeholder="email@email.fr">
+      <div class="errorContainer">
+          @if (emailError) {
+          <p>A valid email is required</p>
+          } @else if (emailAlreadyTaken) {
+          <p>Email is already taken</p>
+          }
+        </div>
+      <input type="password" class="form-control mb-3"  formControlName="password" placeholder="Mot de passe">
+      <div class="errorContainer passwordErrorContainer">
+          @if (passwordError) {
+          <p>
+            Password must contains at least: 8 chars, 1 lowercase, 1 uppercase,
+            1 number, 1 special char
+          </p>
+          } @else if (updateUserError) {
+          <p>An error occured, please try again later</p>
+          } @else if (updateUserSuccess) {
+          <p class="alert alert-success">
+            Ton Profil est mise à jour !
+          </p>
+          }
+        </div>
+      <button class="btn btn-purple px-4 py-2" (click)="updateUser()">Sauvegarder</button>
+    </div>
+    </form>
+    <!-- Ligne de séparation -->
+    <hr class="my-5">
+
+<div class="container p-4">
+  <!-- Abonnements -->
+  <h3 class="fw-bold mb-4 text-center">Abonnements</h3>
+
+  <!-- Liste des thèmes abonnés -->
+  <ng-container *ngIf="(user$ | async) as user">
+    <ng-container *ngIf="(themes$ | async) as themes">
+      <div class="d-flex flex-wrap justify-content-center gap-4">
+        <div *ngFor="let theme of themes">
+          <!-- Affiche seulement si l'utilisateur est abonné -->
+          <div *ngIf="user?.themeIds?.includes(theme.id)">
+            <div class="card h-100" style="width: 18rem;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold">{{theme.name}}</h5>
+                <p class="card-text flex-grow-1">{{theme.description}}</p>
+
+                <div class="mt-auto">
+                  <!-- Bouton en cours de désabonnement -->
+                  <button *ngIf="currentlyUnsubscribing === theme.id"
+                          class="btn btn-secondary w-100"
+                          disabled>
+                    Désabonnement...
+                  </button>
+
+                  <!-- Bouton normal -->
+                  <button *ngIf="currentlyUnsubscribing !== theme.id"
+                          class="btn btn-purple w-100"
+                          (click)="unsubscribeFromTheme(theme.id)">
+                    Se désabonner
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+  <!-- Messages -->
+  <div *ngIf="(user$ | async)?.themeIds?.length === 0" 
+       class="alert alert-info mt-4 text-center">
+    Vous n'êtes abonné à aucun thème actuellement.
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="isError" class="alert alert-danger mt-3">
+    Une erreur est survenue lors de la modification de votre abonnement.
+  </div>
+</div>
+

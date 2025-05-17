@@ -1,0 +1,62 @@
+<app-nav></app-nav>
+<div class="container p-4">
+  <h1 class="mb-4">Liste des Thèmes</h1>
+
+  <!-- Chargement en cours -->
+  <div *ngIf="!(themeList$ | async) || !(user$ | async)" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Erreur de chargement -->
+  <div *ngIf="themeFetchError" class="alert alert-danger">
+    Impossible de charger la liste des thèmes. Veuillez réessayer plus tard.
+  </div>
+
+  <!-- Liste des thèmes -->
+  <div class="row g-4">
+    <ng-container *ngIf="(themeList$ | async) as themes; else loading">
+      <ng-container *ngIf="(user$ | async) as user">
+        <div *ngFor="let theme of themes" class="col-md-6 col-lg-4">
+          <div class="card p-3 h-100">
+            <h5 class="fw-bold">{{ theme.name }}</h5>
+            <p class="mb-3">{{ theme.description }}</p>
+            
+            <!-- Bouton Déjà abonné -->
+            <button *ngIf="user?.themeIds?.includes(theme.id)"
+                    class="btn btn-subscribed w-50 mx-auto d-block"
+                    disabled>
+              Déjà abonné
+            </button>
+            
+            <!-- Bouton S'abonner -->
+            <button *ngIf="!user?.themeIds?.includes(theme.id)"
+                    class="btn btn-subscribe w-50 mx-auto d-block"
+                    (click)="themeId = theme.id; subscribeToSubject()">
+              S'abonner
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    
+    <ng-template #loading>
+      <div class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Message si aucun thème -->
+  <div *ngIf="(themeList$ | async)?.length === 0 && !themeFetchError" class="alert alert-info mt-3">
+    Aucun thème disponible pour le moment.
+  </div>
+
+  <!-- Erreur d'opération -->
+  <div *ngIf="isError" class="alert alert-danger mt-3">
+    Une erreur est survenue lors de l'opération. Veuillez réessayer.
+  </div>
+</div>

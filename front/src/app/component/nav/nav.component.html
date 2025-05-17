@@ -1,0 +1,53 @@
+<nav class="navbar border-bottom px-4 py-2 d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <div class="d-flex align-items-center">
+    <img src="assets/logo_p6_small.png" alt="MDD Logo" class="header-logo" />
+  </div>
+
+  <!-- Bouton hamburger mobile -->
+  <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+    aria-controls="offcanvasMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Liens desktop -->
+  <div class="d-none d-lg-flex align-items-center gap-3">
+     <a (click)="logout()" class="text-danger fw-bold">Se déconnecter</a>
+    <a  routerLink="/articles" [class.active-link]="isArticlesPRouteActive"
+         class="nav-link" >Articles</a>
+    <a [class.active-link]="isThemeRouteActive"
+         class="nav-link" routerLink="/theme">Thèmes</a>
+
+     <a [class.active-link]="isMeRouteActive"
+         class="nav-link" routerLink="/me">
+      <img src="assets/icon_user.png"  alt="User" width="32" height="32" class="rounded-circle border">
+    </a>
+  </div>
+</nav>
+
+<!-- OFFCANVAS MOBILE (menu à droite) -->
+<div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column justify-content-between h-100">
+    <!-- Liens -->
+    <div class="d-flex flex-column align-items-end gap-3">
+      <a (click)="logout()" class="text-danger fw-bold">Se déconnecter</a>
+    <a  routerLink="/articles" [class.active-link]="isArticlesPRouteActive"
+         class="nav-link" >Articles</a>
+    <a [class.active-link]="isThemeRouteActive"
+         class="nav-link" routerLink="/theme">Thèmes</a>
+    </div>
+
+    <!-- Avatar en bas à droite -->
+    <div class="text-end mt-4">
+    <a [class.active-link]="isMeRouteActive"
+         class="nav-link" routerLink="/me">
+      <img src="assets/icon_user.png"  alt="User" width="48" height="48" class="rounded-circle border">
+    </a>
+    </div>
+  </div>
+</div>

@@ -1,214 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
-html {
-  height: 100%;
+ 
+
+
+
+ .errorMessageContainer {
+  color: red;
+  height: 20px;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-
-/* Document
-   ========================================================================== */
-html {
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-}
-
-/* Sections
-   ========================================================================== */
-body {
-  margin: 0;
-}
-
-main {
-  display: block;
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-/* Grouping content
-   ========================================================================== */
-hr {
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
-}
-
-pre {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-/* Text-level semantics
-   ========================================================================== */
-a {
-  background-color: transparent;
-}
-
-abbr[title] {
-  border-bottom: none;
-  text-decoration: underline dotted;
-}
-
-b,
-strong {
-  font-weight: bolder;
-}
-
-code,
-kbd,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-small {
-  font-size: 80%;
-}
-
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-sup {
-  top: -0.5em;
-}
-
-/* Embedded content
-   ========================================================================== */
-img {
-  border-style: none;
-}
-
-/* Forms
-   ========================================================================== */
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
-}
-
-button,
-input {
-  overflow: visible;
-}
-
-button,
-select {
-  text-transform: none;
-}
-
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-}
-
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
-}
-
-button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
-
-fieldset {
-  padding: 0.35em 0.75em 0.625em;
-}
-
-legend {
-  box-sizing: border-box;
-  color: inherit;
-  display: table;
-  max-width: 100%;
-  padding: 0;
-  white-space: normal;
-}
-
-progress {
-  vertical-align: baseline;
-}
-
-textarea {
-  overflow: auto;
-}
-
-[type="checkbox"],
-[type="radio"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-[type="search"] {
-  -webkit-appearance: textfield;
-  outline-offset: -2px;
-}
-
-[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  font: inherit;
-}
-
-/* Interactive
-   ========================================================================== */
-details {
-  display: block;
-}
-
-summary {
-  display: list-item;
-}
-
-/* Misc
-   ========================================================================== */
-template {
+.errorMessageContainer p {
   display: none;
 }
 
-[hidden] {
-  display: none;
+.errorMessageContainer .hasError {
+  display: block;
 }
 
+.long {
+  height: 50px;
+}
 
+.submitButton {
+  margin-top: 25px;
+  width: 220px;
+}
+
+.errorCredentialsMessageContainer {
+  color: red;
+  font-size: var(--font-size-h1, 24px); /* Variable CSS avec valeur par défaut */
+  margin-top: 15px;
+}
+
+.registerSuccess {
+  color: var(--color-primary, #3f51b5); /* Variable CSS avec valeur par défaut */
+}
+ 
+ 
  body {
       min-height: 100vh;
       display: flex;
@@ -239,26 +65,3 @@ template {
       background-color: #7b4de0;
     }
 
-    .errorMessageContainer {
-  color: red;
-  height: 20px;
-}
-
-.errorMessageContainer p {
-  display: none;
-}
-
-.errorMessageContainer .hasError {
-  display: block;
-}
-
-.submitButton {
-  margin-top: 25px;
-  width: 220px;
-}
-
-.errorCredentialsMessageContainer {
-  color: red;
-  font-size: var(--font-size-h1); /* Remplacement de la variable SCSS par CSS */
-  margin-top: 15px;
-}
