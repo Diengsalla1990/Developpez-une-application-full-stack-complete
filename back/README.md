@@ -59,10 +59,10 @@ CREATE DATABASE `dbName`;
 
 Si vous cherchez de l'inspiration pour le nom de votre base de données, pensez à utiliser « mdd », c'est un choix judicieux !
 
-4. Exécutez le fichier SQL « script.sql » qui se trouve dans le dossier ressources situé à la racine de l'application Front/Back (root\resources\sql\initSqlDbAndPopulate.sql).
+4. Exécutez le fichier SQL « script.sql » qui se trouve dans le dossier ressources situé à la racine de l'application Front/Back (root\resources\sql\mdd.sql).
 
 ```sql
-source C:\folder\...\root\ressources\sql\initSqlDbAndPopulate.sql
+source C:\folder\...\root\ressources\sql\mdd.sql
 ```
 
 ## Installation Guide
