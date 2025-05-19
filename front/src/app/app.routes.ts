@@ -9,6 +9,7 @@ import { ThemeComponent } from './page/theme/theme.component';
 import { NewArticleComponent } from './page/new-article/new-article.component';
 import { MeComponent } from './page/me/me.component';
 import { isAuthGuard } from './guard/is-auth.guard';
+import { NotFoundComponent } from './page/not-found/not-found.component';
 
 export const routes: Routes = [
      { path: '', component: HomeComponent ,canActivate: [isNotAuthGuard] },
@@ -40,4 +41,5 @@ export const routes: Routes = [
     component: NewArticleComponent,canActivate: [isAuthGuard]
   },
    { path: 'me', component: MeComponent, canActivate: [isAuthGuard] },
+   { path: '**', component: NotFoundComponent },
 ];

@@ -1,59 +1,125 @@
-# Front
+# MDD App (Monde de Dév) Angular Frontend Project (MVP (Minimum Viable Product))
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+Ce référentiel contient un frontend angulaire pour le projet MDD MVP.
 
-## Development server
+Ce projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
 
-To start a local development server, run:
+## Table of Contents
 
-```bash
-ng serve
+- [MDD App Angular Frontend Project](#mdd-app-monde-de-dév-angular-frontend-project-mvp-minimum-viable-product)
+  - [Contents](#table-of-contents)
+  - [Prerequisite Requirements](#prerequisite-requirements)
+  - [Installation Guide](#installation-guide)
+  - [Project Architecture](#project-architecture)
+
+## Prerequisite Requirements
+
+### 1. Node Package Manager (NPM)
+
+**Installing NPM:**
+
+Avant d'utiliser le frontend MDD Angular, assurez-vous que Node Package Manager (NPM) est installé sur votre système. NPM est essentiel à la gestion des dépendances et à l'exécution des scripts. Suivez les étapes ci-dessous :
+
+1. Download et install [Node.js](https://nodejs.org/).
+2. Confirm the successful installation by running the following commands in your terminal or command prompt:
+
+```shell
+node -v
+npm -v
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Vous devriez voir des versions pour Node.js et NPM.
 
-## Code scaffolding
+### 2. Angular CLI
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**Installing Angular CLI:**
 
-```bash
-ng generate component component-name
+Angular CLI est une interface de ligne de commande pour les applications Angular. Installez la dernière version globalement avec la commande suivante :
+
+```shell
+npm install -g @angular/cli
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Confirmez l'installation réussie en exécutant :
 
-```bash
-ng generate --help
+```shell
+ng --version
 ```
 
-## Building
+Vous devriez voir des informations sur la version Angular CLI installée
 
-To build the project run:
+## Installation Guide
 
-```bash
-ng build
+**Cloning the project:**
+
+1. Clone this repository from GitHub: `git clone https://github.com/Diengsalla1990/Developpez-une-application-full-stack-complete.git`
+
+2. Navigate to front folder
+
+```shell
+cd front
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+3. Install dependencies
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```shell
+npm install
 ```
 
-## Running end-to-end tests
+**Ce projet fonctionne avec l'API fournie dans la partie Backend de l'application, n'oubliez pas de l'installer et de l'exécuter avant d'exécuter le Frontend.**
 
-For end-to-end (e2e) testing, run:
+4. Front-end de lancement
 
-```bash
-ng e2e
+```shell
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Project Architecture
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+├───app
+│   ├───component
+│   │   ├───button
+│   │   ├───comment
+│   │   ├───header
+│   │   ├───nav
+│   │   ├───post-card
+│   │   └───theme-card
+│   ├───core
+│   │   ├───model
+│   │   └───service
+│   │       ├───api
+│   │       │   ├───common
+│   │       │   └───interface
+│   │       │       ├───comment
+│   │       │       │   ├───request
+│   │       │       │   └───response
+│   │       │       ├───post
+│   │       │       │   ├───request
+│   │       │       │   └───response
+│   │       │       ├───subject
+│   │       │       ├───user
+│   │       │       │   ├───request
+│   │       │       │   └───response
+│   │       │       └───userAuth
+│   │       │           ├───request
+│   │       │           └───response
+│   │       ├───route
+│   │       └───session
+│   ├───enviroment
+│   ├───guard
+│   ├───interceptor
+│   ├───interface
+│   ├───page
+│   │   ├───article
+│   │   ├───articles
+│   │   ├───home
+│   │   ├───login
+│   │   ├───me
+│   │   ├───new-article
+│   │   ├───not-found
+│   │   ├───register
+│   │   └───theme
+│   └───style
+└───assets
+```
