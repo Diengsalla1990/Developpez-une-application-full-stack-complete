@@ -16,11 +16,11 @@ export class ArticleService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Creates a new post.
-   * @param createPostRequest - The request body for creating the post.
-   * @returns An Observable of the created Post.
-   */
+ /**
+* Crée une nouvelle publication.
+* @param createPostRequest - Le corps de la requête de création de la publication.
+* @returns Un observable de la publication créée.
+*/
   public create(createPostRequest: CreatePostRequest): Observable<Article> {
     return this.http
       .post<PostResponse>(this.pathService + 'create', createPostRequest)
@@ -30,11 +30,11 @@ export class ArticleService {
       );
   }
 
-  /**
-   * Retrieves a post by its ID.
-   * @param postId - The ID of the post to retrieve.
-   * @returns An Observable of the retrieved Post.
-   */
+ /**
+* Récupère une publication par son identifiant.
+* @param postId - L'identifiant de la publication à récupérer.
+* @returns Un observable de la publication récupérée.
+*/
   public getById(articleId: number): Observable<Article> {
     return this.http
       .get<PostResponse>(this.pathService + 'getarticle/' + articleId)

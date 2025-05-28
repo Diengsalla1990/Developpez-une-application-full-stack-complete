@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 import { SessionService } from '../core/session.service';
 
 /**
- * Interceptor function to add JWT token to the headers of HTTP requests,
- * except for requests to authentication-related endpoints.
- * @param req - The HTTP request being intercepted.
- * @param next - The HTTP handler for the intercepted request.
- * @returns The HTTP request with JWT token added to the headers.
- */
+* Fonction d'interception pour ajouter un jeton JWT aux en-têtes des requêtes HTTP,
+* sauf pour les requêtes adressées à des points de terminaison liés à l'authentification.
+* @param req - Requête HTTP interceptée.
+* @param next - Gestionnaire HTTP de la requête interceptée.
+* @returns Requête HTTP avec jeton JWT ajouté aux en-têtes.
+*/
 export function jwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   const sessionService = inject(SessionService);
   const router = inject(Router)
@@ -19,7 +19,7 @@ export function jwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   if (!req.url.includes('/auth')) {
     const jwt = localStorage.getItem('jwt');
 
-    // Check if JWT and JWT expiration date is valid for request now
+    // Vérifiez si le JWT et la date d'expiration du JWT sont valides pour la demande maintenant
     if(jwt) {
       const decodedToken = jwtDecode(jwt);
       if(decodedToken.exp && Date.now() > decodedToken.exp * 1000) {

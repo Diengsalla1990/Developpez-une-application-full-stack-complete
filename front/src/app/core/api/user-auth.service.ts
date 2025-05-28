@@ -17,17 +17,18 @@ export class UserAuthService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Registers a new user.
-   * @param {RegisterRequest} registerRequest - The registration request data.
-   * @returns {Observable<boolean>} An observable indicating the success of the registration.
-   */
-  public register(registerRequest: RegisterRequest): Observable<boolean> {
+/**
+* Enregistre un nouvel utilisateur.
+* @param {RegisterRequest} registerRequest - Données de la demande d'enregistrement.
+* @returns {Observable<booléen>} Un observable indiquant la réussite de l'enregistrement.
+*/  
+public register(registerRequest: RegisterRequest): Observable<boolean> {
     return this.http
       .post<HttpResponse<RegisterResponse>>(
         this.pathService + 'register',
         registerRequest,
-        { observe: 'response' } // allow to observe 'full' backend response, not only response body cause we're looking for http response status
+        { observe: 'response' } // permet d'observer la réponse « complète » du backend, pas seulement le corps de la réponse, car nous recherchons l'état de la réponse http
+
       )
       .pipe(
         map((response: any) => {
@@ -41,11 +42,11 @@ export class UserAuthService {
       );
   }
 
-  /**
-   * Logs in an existing user.
-   * @param {LoginRequest} loginRequest - The login request data.
-   * @returns {Observable<string>} An observable containing the user token upon successful login.
-   */
+/**
+* Connecte un utilisateur existant.
+* @param {LoginRequest} loginRequest - Données de la demande de connexion.
+* @returns {Observable<string>} Observable contenant le jeton utilisateur lors d'une connexion réussie.
+*/
   public login(loginRequest: LoginRequest): Observable<string> {
     return this.http
       .post<LoginResponse>(this.pathService + 'login', loginRequest)

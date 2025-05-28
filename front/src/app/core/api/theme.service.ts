@@ -17,59 +17,60 @@ private pathService = 'api/theme/';
   constructor(private http: HttpClient) {}
 
   /**
-   * Gets an observable of subjects.
-   * @returns An Observable of subjects.
-   */
+* Obtient un observable de sujets.
+* @returns Un observable de sujets.
+*/
   public $getThemes() {
     return this.themeTheme.asObservable();
   }
 
-  /**
-   * Retrieves all subjects.
-   * @returns An Observable of the retrieved subjects.
-   */
+ /**
+* Récupère tous les sujets.
+* @returns Un observable des sujets récupérés.
+*/
   public getAllSubjects(): Observable<Theme[]> {
-    // Sends a GET request to retrieve all subjects and handles the response
+   // Envoie une requête GET pour récupérer tous les sujets et gère la réponse
     return this.http.get<SubjectResponse[]>(this.pathService + 'getall').pipe(
-      // Maps the response to an array of Subject objects
+      // Mappe la réponse à un tableau d'objets Subject
       map((response: SubjectResponse[]) => {
         let themeArr = response.map((subject: SubjectResponse) =>
           this.getThemeFromThemeResponse(subject)
         );
-        // Updates the local subjects array and notifies subscribers
+        //  Met à jour le tableau des sujets locaux et notifie les abonnés
         this.themes = themeArr;
         this.next();
         return themeArr;
       }),
-      // Handles errors by extracting error message and throwing an Error observable
+      // Gère les erreurs en extrayant le message d'erreur et en lançant un observable d'erreur
       catchError((error: any) => getErrorMessageFromCatchedError(error))
     );
   }
 
   /**
-   * Retrieves a subject by its ID.
-   * @param subjectId - The ID of the subject to retrieve.
-   * @returns An Observable of the retrieved subject.
-   */
+* Récupère un sujet par son identifiant.
+* @param subjectId - L'identifiant du sujet à récupérer.
+* @returns Un observable du sujet récupéré.
+*/
   public getThemeById(themeId: number): Observable<Theme> {
-    // Sends a GET request to retrieve a subject by its ID and handles the response
+  // Envoie une requête GET pour récupérer un sujet par son ID et gère la réponse
     return this.http
       .get<SubjectResponse>(this.pathService + 'getbyid/' + themeId)
       .pipe(
-        // Maps the response to a Subject object
+       // Mappe la réponse à un objet Subject
         map((response: SubjectResponse) =>
           this.getThemeFromThemeResponse(response)
         ),
-        // Handles errors by extracting error message and throwing an Error observable
+        // Gère les erreurs en extrayant le message d'erreur et en lançant un observable d'erreur
         catchError((error: any) => getErrorMessageFromCatchedError(error))
       );
   }
 
-  /**
-   * Retrieves a subject with posts by its ID.
-   * @param subjectId - The ID of the subject to retrieve.
-   * @returns An Observable of the retrieved subject with posts.
-   */
+ /**
+* Récupère un sujet contenant des publications par son identifiant.
+* @param subjectId : identifiant du sujet à récupérer.
+* @returns : un observable du sujet récupéré contenant des publications.
+*/
+
   public getSubjectWithPostById(themeId: number): Observable<Theme> {
     return this.http
       .get<SubjectResponse>(this.pathService + 'getbyidwitharticle/' + themeId)
@@ -81,26 +82,26 @@ private pathService = 'api/theme/';
       );
   }
 
-  /**
-   * Converts a SubjectResponse object to a Subject object.
-   * @param response - The SubjectResponse object to convert.
-   * @returns The converted Subject object.
-   */
+ /**
+* Convertit un objet SubjectResponse en objet Subject.
+* @param response : l'objet SubjectResponse à convertir.
+* @returns : l'objet Subject converti.
+*/
   private getThemeFromThemeResponse(response: SubjectResponse): Theme {
-    // If the response contains postDtos, create a Subject object with posts
+   // Si la réponse contient des postDtos, créez un objet Subject avec des publications
     if (response.articleDtos && response.articleDtos.length > 0) {
       const { id, name, description, articleDtos } = response;
       return new Theme(id, name, description, articleDtos);
     } else {
-      // If the response does not contain postDtos, create a Subject object without posts
+      // Si la réponse ne contient pas de postDtos, créez un objet Subject sans posts
       const { id, name, description } = response;
       return new Theme(id, name, description);
     }
   }
 
-  /**
-   * Notifies subscribers about changes in subjects.
-   */
+ /**
+* Avertit les abonnés des changements de sujet.
+*/
   private next() {
     this.themeTheme.next(this.themes);
   }

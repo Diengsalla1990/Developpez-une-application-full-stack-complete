@@ -9,8 +9,8 @@ import getErrorMessageFromCatchedError from './common/errorResponse';
 
 
 /**
- * Service handling user-related operations.
- */
+* Service gérant les opérations liées à l'utilisateur.
+*/
 @Injectable({
   providedIn: 'root',
 })
@@ -19,21 +19,20 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Retrieves the current user's information.
-   * @returns An observable containing the current user's information.
-   */
+/**
+* Récupère les informations de l'utilisateur actuel.
+* @returns Un observable contenant les informations de l'utilisateur actuel.
+*/
   public getMe(): Observable<User> {
     return this.http.get<UserResponse>(this.pathService + 'me').pipe(
       map((response: UserResponse) => this.getUserFromUserResponse(response)),
       catchError((error: any) => getErrorMessageFromCatchedError(error))
     );
   }
-
-  /**
-   * Retrieves the current user's information along with subscription details.
-   * @returns An observable containing the current user's information with subscription details.
-   */
+/**
+* Récupère les informations de l'utilisateur actuel ainsi que les détails de son abonnement.
+* @returns Un observable contenant les informations de l'utilisateur actuel ainsi que les détails de son abonnement.
+*/
   public getMeWithSub(): Observable<User> {
     return this.http.get<UserResponse>(this.pathService + 'mewithsub').pipe(
       map((response: UserResponse) => this.getUserFromUserResponse(response)),
@@ -42,10 +41,10 @@ export class UserService {
   }
 
   /**
-   * Updates the current user's information.
-   * @param updateUserRequest - The updated user information.
-   * @returns An observable containing the updated user information.
-   */
+* Met à jour les informations de l'utilisateur actuel.
+* @param updateUserRequest - Informations utilisateur mises à jour.
+* @returns Un observable contenant les informations utilisateur mises à jour.
+*/
   public updateMe(updateUserRequest: UpdateUserRequest): Observable<User> {
     return this.http
       .put<UserResponse>(this.pathService + 'updateme', updateUserRequest)
@@ -56,10 +55,10 @@ export class UserService {
   }
 
   /**
-   * Subscribes the current user to a subject.
-   * @param subjectId - The ID of the subject to subscribe to.
-   * @returns An observable containing the updated user information after subscription.
-   */
+* Abonne l'utilisateur actuel à un sujet.
+* @param subjectId - L'ID du sujet auquel s'abonner.
+* @returns Un observable contenant les informations utilisateur mises à jour après l'abonnement.
+*/
   public subscribe(themeId: number): Observable<User> {
     return this.http
       .post<UserResponse>(this.pathService + 'subscribe/' + themeId, null)
@@ -70,10 +69,10 @@ export class UserService {
   }
 
   /**
-   * Unsubscribes the current user from a subject.
-   * @param subjectId - The ID of the subject to unsubscribe from.
-   * @returns An observable containing the updated user information after unsubscription.
-   */
+* Désabonne l'utilisateur actuel d'un sujet.
+* @param subjectId - L'ID du sujet à désabonner.
+* @returns Un observable contenant les informations utilisateur mises à jour après la désinscription.
+*/
   public unsubscribe(themeId: number): Observable<User> {
     return this.http
       .delete<UserResponse>(this.pathService + 'unsubscribe/' + themeId)
@@ -83,11 +82,11 @@ export class UserService {
       );
   }
 
-  /**
-   * Converts a UserResponse object to a User object.
-   * @param response - The UserResponse object to convert.
-   * @returns The converted User object.
-   */
+ /**
+* Convertit un objet UserResponse en objet User.
+* @param response - L'objet UserResponse à convertir.
+* @returns L'objet User converti.
+*/
   private getUserFromUserResponse(response: UserResponse): User {
     if (!response.themeIds) {
       const { id, email, username } = response;

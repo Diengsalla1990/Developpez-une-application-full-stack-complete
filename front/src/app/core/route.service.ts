@@ -3,8 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, filter } from 'rxjs';
 
 /**
- * Service to manage and provide information about the current route.
- */
+* Service de gestion et de fourniture d'informations sur l'itinéraire actuel.
+*/
 @Injectable({
   providedIn: 'root',
 })
@@ -16,26 +16,26 @@ export class RouteService {
       this.getCurrentRoute()
     );
 
-    // Subscribing to router events to update the current route
+    // S'abonner aux événements du routeur pour mettre à jour la route actuelle
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd)) // Filtering only NavigationEnd events
+      .pipe(filter((event) => event instanceof NavigationEnd)) 
       .subscribe(() => {
         const currentRoute = this.getCurrentRoute();
-        this.currentRouteSubject.next(currentRoute); // Updating the current route subject
+        this.currentRouteSubject.next(currentRoute); 
       });
   }
 
   /**
-   * @returns {string} The current route.
+   * @returns {string} route courent
    */
   getCurrentRoute(): string {
     return this.router.routerState.snapshot.url;
   }
 
   /**
-   * Gets an observable of the current route.
-   * @returns An observable emitting the current route.
-   */
+* Obtient un observable de la route actuelle.
+* @returns Un observable émettant la route actuelle.
+*/
   getCurrentRoute$() {
     return this.currentRouteSubject.asObservable();
   }

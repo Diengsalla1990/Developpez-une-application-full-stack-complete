@@ -14,12 +14,11 @@ export class CommentService {
 private pathService = 'api/comment/';
 
   constructor(private http: HttpClient) {}
-
-  /**
-   * Creates a new comment.
-   * @param commentRequest - The request body for creating the comment.
-   * @returns An Observable of the updated Post after creating the comment.
-   */
+/**
+* Crée un nouveau commentaire.
+* @param commentRequest - Le corps de la requête pour la création du commentaire.
+* @returns Un observable de la publication mise à jour après la création du commentaire.
+*/
   public createComment(commentRequest: CreateCommentRequest): Observable<Article> {
     return this.http
       .post<PostResponse>(this.pathService + 'create', commentRequest)

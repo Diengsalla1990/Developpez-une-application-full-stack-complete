@@ -6,8 +6,8 @@ import { UserService } from './api/user.service';
 import { UserResponse } from './api/interface/user/response/UserResponse';
 
 /**
- * Service responsible for managing user session information.
- */
+* Service chargé de gérer les informations de session utilisateur.
+*/
 @Injectable({
   providedIn: 'root',
 })
@@ -23,34 +23,34 @@ export class SessionService {
 
   constructor(private userService: UserService) {}
 
-  /**
-   * Observable to track the login status.
-   * @returns An Observable<boolean> indicating whether the user is logged in.
-   */
+ /**
+* Observable pour suivre l'état de connexion.
+* @returns Un Observable<booléen> indiquant si l'utilisateur est connecté.
+*/
   public $isLogged(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
   }
 
   /**
-   * Observable to track the loading status.
-   * @returns An Observable<boolean> indicating whether the service is in a loading state.
-   */
+* Observable pour suivre l'état de chargement.
+* @returns Un Observable<booléen> indiquant si le service est en cours de chargement.
+*/
   public $isLoading(): Observable<boolean> {
     return this.isLoadingSubject.asObservable();
   }
 
   /**
-   * Observable to retrieve information about the logged-in user.
-   * @returns An Observable<User | undefined> containing information about the user.
-   */
+* Observable pour récupérer des informations sur l'utilisateur connecté.
+* @returns Un Observable<User | undefined> contenant des informations sur l'utilisateur.
+*/
   public $getUser(): Observable<User | undefined> {
     return this.userSubject.asObservable();
   }
 
   /**
-   * Attempts to log in using the JSON Web Token (JWT) stored in the local storage.
-   * If a JWT is found, it fetches user details and updates the session accordingly.
-   */
+* Tente de se connecter à l'aide du jeton Web JSON (JWT) stocké dans le stockage local.
+* Si un JWT est trouvé, il récupère les informations de l'utilisateur et met à jour la session en conséquence.
+*/
   public loginWithLocalStorageJwt(): void {
     const jwt = localStorage.getItem('jwt');
     if (jwt !== null) {
@@ -83,11 +83,11 @@ export class SessionService {
     }
   }
 
-  /**
-   * Logs in the user with the provided JSON Web Token (JWT).
-   * @param jwt The JWT used for user authentication.
-   * @returns An Observable<boolean> indicating whether the login was successful.
-   */
+ /**
+* Connecte l'utilisateur avec le jeton Web JSON (JWT) fourni.
+* @param jwt Le JWT utilisé pour l'authentification de l'utilisateur.
+* @returns Un Observable<booléen> indiquant si la connexion a réussi.
+*/
   public logIn(jwt: string): Observable<boolean> {
     const localStorageJwt = localStorage.getItem('jwt');
     if (localStorageJwt === null || localStorageJwt !== jwt) {
@@ -112,9 +112,9 @@ export class SessionService {
     );
   }
 
-  /**
-   * Logs out the user, clearing session variables and removing the JWT from local storage.
-   */
+/**
+* Déconnecte l'utilisateur, efface les variables de session et supprime le JWT du stockage local.
+*/
   public logOut() {
     this.isLogged = false;
     this.user = undefined;
@@ -123,25 +123,24 @@ export class SessionService {
     this.next();
   }
 
-  /**
-   * Sets the loading status.
-   * @param value A boolean indicating whether the service is in a loading state.
-   */
+/**
+* Définit l'état de chargement.
+* @param value : une valeur booléenne indiquant si le service est en cours de chargement.
+*/
   public setIsLoading(value: boolean) {
     this.isLoading = value;
   }
 
   /**
-   * Updates the user information and emits changes to subscribers.
-   * @param user The updated user information.
-   */
+* Met à jour les informations utilisateur et transmet les modifications aux abonnés.
+* @param user : les informations utilisateur mises à jour.
+*/
   public updateUser(user: User) {
     this.user = user;
     this.userSubject.next(this.user);
   }
 
-  /** Emits changes of session states to subscribers. */
-  private next(): void {
+ /** Émet les changements d'état de session aux abonnés. */  private next(): void {
     this.isLoggedSubject.next(this.isLogged);
     this.userSubject.next(this.user);
   }

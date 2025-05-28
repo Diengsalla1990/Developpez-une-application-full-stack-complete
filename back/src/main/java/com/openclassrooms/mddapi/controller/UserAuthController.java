@@ -135,7 +135,7 @@ public class UserAuthController {
 	          .badRequest()
 	          .body(userAuthResponse.getLoginBadCredentialsResponseMessage());
 	      }
-         System.out.println("alo");
+         
 	      // verifier si le password correct
 	      boolean isPasswordCorrect = UserService.isPasswordValid(
 	        loginRequest.getPassword(),
@@ -160,6 +160,9 @@ public class UserAuthController {
 	    }
 	  }
 
+	  
+	  
+	  
 	  /**
 	  * Méthode d'assistance pour vérifier l'existence d'un utilisateur en fonction de son adresse e-mail ou de son nom d'utilisateur.
 	  * @param emailOrUsername : l'adresse e-mail ou le nom d'utilisateur fourni dans la demande de connexion.

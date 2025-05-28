@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-article-card',
-  imports: [DatePipe],
+  imports: [],
   templateUrl: './article-card.component.html',
   styleUrl: './article-card.component.css'
 })

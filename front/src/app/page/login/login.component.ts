@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit, OnDestroy {
    }
 
    /**
-   * Handles form submission upon user login attempt.
-   * Validates user inputs, performs login request, and handles response accordingly.
-   */
+* Gère la soumission du formulaire lors de la tentative de connexion de l'utilisateur.
+* Valide les saisies de l'utilisateur, exécute la demande de connexion et gère la réponse en conséquence.
+*/
   onSubmitForm(): void {
     // Reset error flags and messages
     this.emailOrUsernameHasError = false;
